@@ -1,0 +1,150 @@
+@mixin radio-button {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 18px;
+    height: 18px;
+    margin: auto 0;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+
+    &:checked {
+        background-color: #f64141;
+    }
+}
+
+.wrapper {
+    background-color: var(--white);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.overview {
+    width: 60%;
+}
+
+
+.info-pays {
+    font-size: 1.8rem;
+
+    .form-wrapper {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .w-full {
+            width: 100% !important;
+        }
+
+        .input-info {
+            width: 48%;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 2.4rem;
+            margin-bottom: 14px;
+
+            input[type="text"] {
+                width: 100%;
+                height: 40px;
+                padding-left: 8px;
+                background-color: transparent;
+                text-align: left;
+                vertical-align: middle;
+                line-height: 30px;
+            }
+        }
+
+        input[type="radio"] {
+            @include radio-button
+        }
+
+        label {
+            font-weight: 600;
+
+        }
+
+        b {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .radio-wrapper {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+
+            .radio-inner {
+                display: flex;
+                align-items: center;
+
+                input {
+                    margin-right: 10px;
+                }
+
+            }
+        }
+
+    }
+}
+
+.total-wrapper {
+    width: 38%;
+    margin-top: calc(var(--default-layout-horizontal-spacer) /2);
+
+    .total-inner {
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        padding: 10px;
+
+        .total-price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            border-bottom: 2px solid #999;
+            margin-bottom: 10px;
+
+            .calc-total,
+            .save-total {
+                display: flex;
+                justify-content: space-between;
+
+                span {
+                    width: 25%;
+                }
+            }
+
+            .calc-total {
+                color: var(--primary);
+            }
+
+            .save-total {
+                color: #666;
+            }
+        }
+    }
+
+    .action-price {
+        .rules-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+
+            input {
+                @include radio-button()
+            }
+
+            b {
+                margin-left: 10px;
+            }
+        }
+
+        .btn-order {
+            width: 100%;
+        }
+    }
+}

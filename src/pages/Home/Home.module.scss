@@ -1,0 +1,24 @@
+.wrapper {
+    width: 100%;
+}
+
+.top-products {
+    margin-top: var(--default-layout-horizontal-spacer);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    line-height: 42px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding-left: var(--default-layout-horizontal-spacer);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.btn-kinds {
+    margin-top: var(--default-layout-horizontal-spacer);
+}

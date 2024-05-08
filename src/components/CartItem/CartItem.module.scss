@@ -1,0 +1,139 @@
+@mixin radio-button {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 18px;
+    height: 18px;
+    margin: auto 0;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+
+    &:checked {
+        background-color: #f64141;
+    }
+}
+
+.card-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-top: calc(var(--default-layout-horizontal-spacer) / 2);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 10px;
+
+
+    input[type="radio"] {
+        @include radio-button;
+    }
+
+    .icon-trash {
+        margin: auto 0;
+        font-size: 2.2rem;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .img {
+        max-width: 25%;
+        text-align: center;
+
+        img {
+            height: 100%;
+            width: 160px;
+            object-fit: cover;
+        }
+    }
+
+    .info-product {
+        width: 65%;
+        display: block;
+
+        .book-name {
+            font-size: 2.8rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .details-book {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.6rem;
+            flex-wrap: wrap;
+            color: #666;
+            margin-top: 10px;
+
+            .content {
+                display: flex;
+                justify-content: space-between;
+                width: 50%;
+                height: 40px;
+                line-height: 1.2;
+
+                .lbl-content {
+                    width: 40%;
+                }
+
+                .value-content {
+                    width: 60%;
+                    color: var(--black);
+                    font-weight: 600;
+                }
+
+                .cont-re-price {
+                    font-size: 2.2rem;
+                    color: var(--primary);
+                    font-weight: 700;
+                }
+
+                .cont-price {
+                    opacity: 0.6;
+                    text-decoration: line-through;
+                }
+
+                .action-qua {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 80%;
+
+                    button {
+                        width: 20%;
+                        font-size: 1.6rem;
+                        font-weight: 600;
+                        background-color: #efcaca;
+                        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+                        border-radius: 8px;
+
+                        &:hover {
+                            opacity: 0.8;
+                        }
+                    }
+
+                    .input-qua {
+                        width: 50%;
+                        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+                        border-radius: 8px;
+                        display: flex;
+                        align-items: center;
+                        margin: 0 10px;
+
+                        input {
+                            width: 100%;
+                            background-color: transparent;
+                            text-align: center;
+                            vertical-align: middle;
+                            line-height: 30px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

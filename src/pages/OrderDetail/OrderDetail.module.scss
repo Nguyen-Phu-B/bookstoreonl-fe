@@ -1,0 +1,51 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: var(--default-layout-witdh);
+}
+
+.over-view {
+    width: 60%;
+}
+
+.prices {
+    width: 38%;
+    margin-top: calc(var(--default-layout-horizontal-spacer) /2);
+
+    .total-inner {
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        padding: 10px;
+
+        .total-price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            border-bottom: 2px solid #999;
+            margin-bottom: 10px;
+
+            .calc-total,
+            .save-total {
+                display: flex;
+                justify-content: space-between;
+
+                span {
+                    width: 25%;
+                }
+            }
+
+            .calc-total {
+                color: var(--primary);
+            }
+
+            .save-total {
+                color: #666;
+            }
+        }
+    }
+
+    .actions {
+        button {
+            width: 100%;
+        }
+    }
+}

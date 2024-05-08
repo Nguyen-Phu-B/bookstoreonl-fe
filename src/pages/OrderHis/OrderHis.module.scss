@@ -1,0 +1,100 @@
+.wrapper {
+    margin-top: var(--default-layout-horizontal-spacer);
+    width: var(--default-layout-witdh);
+}
+
+.inner {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.table-wrapper {
+    width: 100%;
+    padding: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    max-height: 800px;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+.table-inner {
+    width: 100%;
+
+    .table-head {
+        .group-head {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.8rem;
+            font-weight: 600;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+    }
+
+    .table-body {
+        .group-body {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            text-align: center;
+            line-height: 48px;
+        }
+    }
+
+    .id-order,
+    .user-name,
+    .phone-number,
+    .address,
+    .total-price,
+    .create-date,
+    .actions-table {
+        overflow-y: scroll;
+        text-wrap: nowrap;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .id-order {
+        width: 10%;
+    }
+
+    .user-name {
+        width: 10%;
+
+    }
+
+    .phone-number {
+        width: 15%;
+
+    }
+
+    .address {
+        width: 25%;
+        text-align: left;
+    }
+
+    .total-price {
+        width: 10%;
+
+    }
+
+    .create-date {
+        width: 10%;
+
+    }
+
+    .actions-table {
+        width: 15%;
+
+    }
+}
