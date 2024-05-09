@@ -100,7 +100,7 @@ const ChangePassword = () => {
             </div>
 
             <div className={cx("actions")}>
-                <Button primary large onClick={handleSubmit}>
+                <Button type="submit" primary large onClick={handleSubmit}>
                     Xác nhận
                 </Button>
                 <Button primary large onClick={handleCancelForm}>

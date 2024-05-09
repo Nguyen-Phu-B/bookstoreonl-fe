@@ -18,7 +18,6 @@ const Product = () => {
 
     const [book, setBook] = useState({});
     const [quantity, setQuantity] = useState(1);
-    const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("cartItems")) || []);
 
     const handleAddToCart = () => {
         const item = {
@@ -49,8 +48,7 @@ const Product = () => {
     };
 
     useEffect(() => {
-        const parts = location.pathname.split("/");
-        const bookId = parts[parts.length - 1];
+        const bookId = location.pathname.split("/").pop();
 
         const fetchData = async () => {
             try {

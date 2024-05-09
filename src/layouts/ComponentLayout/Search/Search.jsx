@@ -64,7 +64,6 @@ const Search = () => {
                 visible={showResult && searchResult.length > 0}
                 render={(attrs) => (
                     <PopperWrapper>
-                        {/* <h4 className={cx("search-result")} tabIndex="-1" {...attrs}></h4> */}
                         {searchResult.map((result) => (
                             <ProductItem key={result._id} data={result} onClick={handleHideResult} />
                         ))}

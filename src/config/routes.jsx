@@ -6,6 +6,7 @@ const routes = {
     user: "/user/:action",
     orderHis: "/orderHis",
     orderDetail: "/orderDetail/:idOrder",
+    kind: "/kind/:kind",
 };
 
 export default routes;

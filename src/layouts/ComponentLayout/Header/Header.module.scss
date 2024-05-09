@@ -24,6 +24,10 @@
 
 }
 
+.custom-witdh-popper {
+    width: 130px !important;
+}
+
 .logo {
     display: flex;
     height: 100%;
@@ -34,12 +38,13 @@
         font-family: var(--font-logo);
         color: #b9e541;
     }
+
+    img {
+        display: flex;
+        width: 50px;
+    }
 }
 
-.logo img {
-    display: flex;
-    width: 50px;
-}
 
 .actions {
     display: flex;

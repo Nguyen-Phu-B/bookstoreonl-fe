@@ -12,7 +12,10 @@ const cx = classNames.bind(styles);
 const defFunc = () => {};
 
 const Menu = forwardRef(
-    ({ children, items = [], hideOnClick = false, onClick = defFunc, onChange = defFunc, ...passProps }, ref) => {
+    (
+        { children, items = [], hideOnClick = false, onClick = defFunc, onChange = defFunc, className, ...passProps },
+        ref,
+    ) => {
         const [history, setHistory] = useState([{ data: items }]);
         const current = history[history.length - 1];
 
@@ -47,9 +50,11 @@ const Menu = forwardRef(
             setHistory((prev) => prev.slice(0, prev.length - 1));
         };
 
+        const classes = cx("menu-popper", "asssss", { [className]: className });
+
         const renderResult = (attrs) => (
             <div className={cx("menu-list")} tabIndex="-1" {...attrs}>
-                <PopperWrapper className={cx("menu-popper")}>
+                <PopperWrapper className={classes}>
                     {history.length > 1 && <HeaderMenu title={current.title} onBack={handleBack} />}
                     <div className={cx("menu-body")}>{renderItems()}</div>
                 </PopperWrapper>

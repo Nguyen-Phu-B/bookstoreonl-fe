@@ -7,6 +7,7 @@ import User from "../pages/User";
 import config from "../config";
 import OrderHis from "../pages/OrderHis";
 import OrderDetail from "../pages/OrderDetail";
+import Kind from "../pages/Kind";
 
 const publicsRoutes = [
     { path: config.routes.home, component: Home },
@@ -16,6 +17,7 @@ const publicsRoutes = [
     { path: config.routes.user, component: User },
     { path: config.routes.orderHis, component: OrderHis },
     { path: config.routes.orderDetail, component: OrderDetail },
+    { path: config.routes.kind, component: Kind },
 ];
 
 export { publicsRoutes };

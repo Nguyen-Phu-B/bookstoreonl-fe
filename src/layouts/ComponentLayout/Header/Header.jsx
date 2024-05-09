@@ -11,9 +11,9 @@ import Button from "../../../components/Button";
 import Search from "../Search";
 import Img from "../../../components/Images/Img";
 import { login, logout } from "../../../redux/authSlice";
-import { toggleModal } from "../../../redux/modalSlice";
 import Menu from "../../../components/Popper/Menu";
 import bookApi from "../../../apis/bookApi";
+import { updateKinds } from "../../../redux/kindsSlice";
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +25,7 @@ const Header = () => {
     const user = useSelector((state) => state.auth.userLogin);
     const isLogin = useSelector((state) => state.auth.isLogin);
     const cartItems = useSelector((state) => state.cart.cartItems);
+    const listKinds = useSelector((state) => state.kinds.listKinds);
 
     const MENU_LOGIN_ITEMS = [
         {
@@ -65,8 +66,16 @@ const Header = () => {
                 setLoading(true);
                 const allKinds = await bookApi.getAllKinds();
 
-                const menuKinds = allKinds.data.map((item) => ({ title: item }));
-
+                const menuKinds = allKinds.data.map((item) => ({
+                    title: item,
+                    type: item
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "")
+                        .toLowerCase()
+                        .replace(/\s+/g, "")
+                        .replace(/đ/g, "d"),
+                }));
+                dispatch(updateKinds(menuKinds));
                 setDataMenuKinds(menuKinds);
             } catch (error) {
                 console.log("🚀 ~ fetchApiGetAllKinds ~ error:", error);
@@ -77,10 +86,6 @@ const Header = () => {
 
         fetchApiGetAllKinds();
     }, []);
-
-    useEffect(() => {
-        console.log("🚀 ~ dataMenuKinds:", dataMenuKinds);
-    }, [dataMenuKinds]);
 
     const handleLogOutClick = () => {
         dispatch(logout());
@@ -99,15 +104,24 @@ const Header = () => {
         }
     }, [isLogin]);
 
-    const handleLoginMenuChange = (menuItem) => {
+    const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case "changePass":
                 navigate(config.routes.user.replace(":action", "changepass"));
-
                 const hisPath = location.pathname.split("/").pop();
                 localStorage.setItem("hisPath", JSON.stringify(hisPath));
                 break;
             default:
+                const handler = dataMenuKinds.find((item) => item.type === menuItem.type);
+                if (handler) {
+                    const url = config.routes.kind.replace(":kind", handler.type);
+                    if (url) {
+                        navigate(`${url}?title=${handler.title}&page=1&pageSize=12`);
+                    } else {
+                        console.error(`URL not found for type: ${menuItem.type}`);
+                    }
+                }
+                break;
         }
     };
 
@@ -138,12 +152,12 @@ const Header = () => {
                     <Button outline to={config.routes.home}>
                         Trang chủ
                     </Button>
-                    <Menu items={dataMenuKinds}>
+                    <Menu items={dataMenuKinds} onChange={handleMenuChange} className={cx("custom-witdh-popper")}>
                         <Button outline className={cx("custom-btn")}>
                             Thể loại
                         </Button>
                     </Menu>
-                    <Button outline to={config.routes.product}>
+                    <Button outline className={cx("custom-btn")}>
                         Liên hệ
                     </Button>
                 </div>
@@ -162,7 +176,7 @@ const Header = () => {
                     </Link>
 
                     {isLogin ? (
-                        <Menu items={dataMenuLogin} onChange={handleLoginMenuChange} onClick={handleLogOutClick}>
+                        <Menu items={dataMenuLogin} onChange={handleMenuChange} onClick={handleLogOutClick}>
                             <Img className={cx("avatar")} src={user?.avatar} alt="" />
                         </Menu>
                     ) : (

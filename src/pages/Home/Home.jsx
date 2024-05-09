@@ -6,25 +6,48 @@ import Button from "../../components/Button";
 
 import classNames from "classnames/bind";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
 const Home = () => {
     const [topBooks, setTopBooks] = useState([]);
     const [allBooks, setAllBooks] = useState([]);
+    const [booksKind, setBooksKind] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
+    const listKinds = useSelector((state) => state.kinds.listKinds);
+
+    const handleKindClick = (kind) => {
+        const formatKind = kind
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .replace(/đ/g, "d");
+
+        const fetchApiGetBooks = async () => {
             try {
-                const resTopBook = await bookApi.getTop();
-                const resAllBook = await bookApi.getAll();
-                // console.log("🚀 ~ fetchData ~ response:", response);
-                setTopBooks(resTopBook.data);
-                setAllBooks(resAllBook.data);
+                const getBooksByKind = await bookApi.getBooksByKind(formatKind, 1, 8);
+                setBooksKind(getBooksByKind.data.filterBooks);
             } catch (error) {
-                console.log("🚀 ~ fetchData ~ error:", error);
+                console.log("🚀 ~ fetchApiGetBooks ~ error:", error);
             }
         };
+
+        fetchApiGetBooks();
+    };
+
+    const fetchData = async () => {
+        try {
+            const resTopBook = await bookApi.getTop();
+            const resAllBook = await bookApi.getAll();
+            setTopBooks(resTopBook.data);
+            setAllBooks(resAllBook.data);
+        } catch (error) {
+            console.log("🚀 ~ fetchData ~ error:", error);
+        }
+    };
+    useEffect(() => {
         fetchData();
     }, []);
     return (
@@ -39,19 +62,21 @@ const Home = () => {
             </div>
 
             <div className={cx("btn-kinds")}>
-                <Button outline>Văn học</Button>
-                <Button outline>Kinh tế</Button>
-                <Button outline>Văn hoá</Button>
-                <Button outline>Truyện</Button>
-                <Button outline>Phật giáo</Button>
+                {listKinds &&
+                    listKinds.map((item, index) => (
+                        <Button key={index} outline onClick={(e) => handleKindClick(item.title)}>
+                            {item.title}
+                        </Button>
+                    ))}
             </div>
 
             <div className={cx("inner")}>
-                {allBooks.map((data) => (
+                {booksKind.length > 0
+                    ? booksKind.map((data) => <CardProducts key={data._id} data={data} />)
+                    : allBooks.map((data) => <CardProducts key={data._id} data={data} />)}
+                {/* {allBooks.map((data) => (
                     <CardProducts key={data._id} data={data} />
-                ))}
-
-                {/* <div className={cx("list-page")}></div> */}
+                ))} */}
             </div>
         </div>
     );

@@ -19,6 +19,7 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const formik = useFormik({
         initialValues: {
@@ -30,20 +31,23 @@ const Login = () => {
             password: Yup.string().required("Vui lòng nhập mậy khẩu"),
         }),
         onSubmit: async (values) => {
-            console.log("🚀 ~ Register ~ values:", values);
             try {
                 setLoading(true);
                 const fetchApiLogin = await authApi.login(values);
                 const accesToken = fetchApiLogin.data;
+
                 localStorage.setItem("accessToken", JSON.stringify(accesToken));
                 const resUserProfile = await authApi.authUserInfo();
-                dispatch(login(resUserProfile.data.userInfo));
-            } catch (error) {
-                console.error("🚀 ~ onSubmit: ~ error:", error);
-            } finally {
+
                 const hisPath = JSON.parse(localStorage.getItem("hisPath"));
                 navigate(config.routes[hisPath] || config.routes.home);
                 localStorage.removeItem("hisPath");
+
+                dispatch(login(resUserProfile.data.userInfo));
+            } catch (error) {
+                console.error("🚀 ~ onSubmit: ~ error:", error);
+                setError(error.response.data.message);
+                console.log("🚀 ~ onSubmit: ~ error:", error.response.data);
                 setLoading(false);
             }
         },
@@ -88,8 +92,10 @@ const Login = () => {
                 {/* <Link to={config.routes.user.replace(":action", "misspass")}>Quên mật khẩu?</Link> */}
             </div>
 
+            {error && <div className={cx("error")}>{error}</div>}
+
             <div className={cx("actions")}>
-                <Button primary large onClick={handleSubmit}>
+                <Button type="submit" primary large onClick={handleSubmit}>
                     Đăng nhập
                 </Button>
                 <Button primary large onClick={handleCancelForm}>
