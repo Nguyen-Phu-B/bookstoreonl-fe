@@ -27,7 +27,6 @@ const OrderHis = () => {
                 setLoading(true);
                 const fetchApiGetOrdesById = await orderApi.getOrdersById();
                 setData(fetchApiGetOrdesById.data);
-                console.log("🚀 ~ fetchOrdesById ~ fetchApiGetOrdesById:", fetchApiGetOrdesById);
             } catch (error) {
                 console.log("🚀 ~ useEffect ~ error:", error);
             } finally {

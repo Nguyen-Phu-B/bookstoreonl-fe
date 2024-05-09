@@ -20,6 +20,7 @@ const ChangePassword = () => {
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const formik = useFormik({
         initialValues: {
@@ -39,13 +40,12 @@ const ChangePassword = () => {
                 const fetchApiChangePass = await userApi.updatePass(values);
                 const resUserProfile = await authApi.authUserInfo();
                 dispatch(login(resUserProfile.data.userInfo));
-            } catch (error) {
-                console.error("🚀 ~ onSubmit: ~ error:", error);
-            } finally {
                 const hisPath = JSON.parse(localStorage.getItem("hisPath"));
-
                 navigate(config.routes[hisPath] || config.routes.home);
                 localStorage.removeItem("hisPath");
+            } catch (error) {
+                console.error("🚀 ~ onSubmit: ~ error:", error);
+                setError(error.response.data.message);
                 setLoading(false);
             }
         },
@@ -98,6 +98,8 @@ const ChangePassword = () => {
                     />
                 </div>
             </div>
+
+            {error && <div className={cx("error")}>{error}</div>}
 
             <div className={cx("actions")}>
                 <Button type="submit" primary large onClick={handleSubmit}>

@@ -18,7 +18,6 @@ const User = () => {
         const parts = location.pathname.split("/");
         const actPage = parts[parts.length - 1];
         setActionPage(actPage);
-        console.log("🚀 ~ User ~ actionPage:", actionPage);
     }, [location, actionPage]);
 
     return (

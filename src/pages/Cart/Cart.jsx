@@ -11,7 +11,13 @@ import config from "../../config";
 import styles from "./Cart.module.scss";
 import Button from "../../components/Button";
 import CartItem from "../../components/CartItem";
-import { decreaseQuantity, increaseQuantity, removeItemFromCart, updateCartItemsQuantity } from "../../redux/cartSlice";
+import {
+    decreaseQuantity,
+    increaseQuantity,
+    removeCart,
+    removeItemFromCart,
+    updateCartItemsQuantity,
+} from "../../redux/cartSlice";
 
 const cx = classNames.bind(styles);
 
@@ -81,9 +87,9 @@ const Cart = () => {
 
             try {
                 const fetchApi = await orderApi.postOrder(values);
-                console.log("🚀 ~ onSubmit: ~ fetchApi:", fetchApi.data);
                 alert("Đơn hàng đã được tạo");
                 localStorage.removeItem("cartItems");
+                dispatch(removeCart());
                 navigate(config.routes.home);
             } catch (error) {
                 console.error("🚀 ~ onSubmit: ~ error:", error);

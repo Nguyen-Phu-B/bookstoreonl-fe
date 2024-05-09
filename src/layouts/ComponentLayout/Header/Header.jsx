@@ -38,11 +38,11 @@ const Header = () => {
             title: "Đơn hàng đã mua",
             to: config.routes.orderHis,
         },
-        {
-            icon: <i className="fa-solid fa-book-bookmark"></i>,
-            title: "Chủ đề yêu thích",
-            to: "/setting",
-        },
+        // {
+        //     icon: <i className="fa-solid fa-book-bookmark"></i>,
+        //     title: "Chủ đề yêu thích",
+        //     to: "/setting",
+        // },
         {
             icon: <i className="fa-solid fa-repeat"></i>,
             title: "Đổi mật khẩu",

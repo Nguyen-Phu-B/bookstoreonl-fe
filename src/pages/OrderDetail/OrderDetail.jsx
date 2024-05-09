@@ -31,7 +31,6 @@ const OrderDetail = () => {
 
                 const param = location.pathname.split("/").pop();
                 const getOrderById = await orderApi.getOrderById(param);
-                console.log("🚀 ~ fetchApiGetOrder ~ getOrderById:", getOrderById);
 
                 const itemsData = await Promise.all(
                     getOrderById.data.orderList.map(async (item) => {
@@ -48,7 +47,6 @@ const OrderDetail = () => {
                     initValueInput[item._id] = item.orderQuantity;
                 });
 
-                console.log("🚀 ~ fetchApiGetOrder ~ itemsData:", itemsData);
                 setListData(itemsData);
                 setInputValueQuantity(initValueInput);
             } catch (error) {

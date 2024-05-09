@@ -47,7 +47,6 @@ const Login = () => {
             } catch (error) {
                 console.error("🚀 ~ onSubmit: ~ error:", error);
                 setError(error.response.data.message);
-                console.log("🚀 ~ onSubmit: ~ error:", error.response.data);
                 setLoading(false);
             }
         },
